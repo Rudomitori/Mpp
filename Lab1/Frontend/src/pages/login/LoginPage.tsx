@@ -1,6 +1,7 @@
 ﻿import {Box, Button, Stack, TextField, Typography} from "@mui/material";
 import {FC, FormEvent, useState} from "react";
 import {useAuth} from "../../contexts/authContext";
+import {useLocation, useNavigate} from "react-router-dom";
 
 interface IPageProps {
 
@@ -8,14 +9,20 @@ interface IPageProps {
 
 const LoginPage: FC<IPageProps> = (props) => {
     const auth = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // noinspection JSIgnoredPromiseFromCall
-        auth.signIn(login, password);
+        await auth.signIn(login, password);
+        const backUrl = (location.state as any)?.backUrl;
+        if(typeof backUrl === "string") 
+            navigate(backUrl);
+        else 
+            navigate("/buttons");
     }
 
     return (

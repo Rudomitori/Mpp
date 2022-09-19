@@ -1,7 +1,7 @@
-﻿import {Box, Button, Checkbox, FormControlLabel, Grid, Link, Stack, TextField, Typography} from "@mui/material";
+﻿import {Box, Button, Stack, TextField, Typography} from "@mui/material";
 import {FC, FormEvent, useState} from "react";
 import {useAuth} from "../../contexts/authContext";
-import UsersApi from "../../api/UsersApi";
+import {useNavigate} from "react-router-dom";
 
 interface IPageProps {
 
@@ -9,14 +9,15 @@ interface IPageProps {
 
 const RegisterPage: FC<IPageProps> = (props) => {
     const auth = useAuth();
+    const navigate = useNavigate();
     
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // noinspection JSIgnoredPromiseFromCall
-        auth.signUp(login, password);
+        await auth.signUp(login, password);
+        navigate("/buttons");
     }
     
     return (

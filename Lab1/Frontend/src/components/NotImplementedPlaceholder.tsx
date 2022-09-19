@@ -1,6 +1,6 @@
 ﻿const NotImplementedPlaceholder = () => {
     return (
-        <>"Not implemented yet</>
+        <>Not implemented yet</>
     )
 }
 
