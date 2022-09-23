@@ -80,7 +80,7 @@ const RouteWithAuth: FC<IRoutInfo> = (props) => {
     if (!auth.user && props.accessLevel > AccessLevel.any)
         return <Navigate to={"/login"} replace state={{backUrl: location.pathname}}/>;
 
-    if (auth.user && props.accessLevel == AccessLevel.admin)
+    if (!auth.user?.isAdmin && props.accessLevel == AccessLevel.admin)
         return <AccessDeniedPlaceholder/>
 
     return <>{props.element}</>;

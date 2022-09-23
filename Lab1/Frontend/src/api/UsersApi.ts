@@ -15,6 +15,11 @@ export default abstract class UsersApi {
     static async logout() {
         await axios.post(`${configuration.apiUrl}/users/logout`, axiosOptions);
     }
+    
+    static async get() {
+        const response = await axios.get(`${configuration.apiUrl}/users`, axiosOptions);
+        return response.data as IApiUser[];
+    }
 
     static async getCurrent() {
         const response = await axios.get(`${configuration.apiUrl}/users/current`, axiosOptions);
@@ -28,8 +33,30 @@ export default abstract class UsersApi {
         const response = await axios.post(`${configuration.apiUrl}/users/create`, args, axiosOptions);
         return response.data as IApiUser
     }
+    
+    static async changePassword(args: {
+        userId: string,
+        password: string
+    }) {
+        const response = await axios.patch(
+            `${configuration.apiUrl}/users/${args.userId}/password`, 
+            {password: args.password},
+            axiosOptions
+        );
+    }
+    
+    static async deleteUser(args: {
+        userId: string
+    }) {
+        await axios.delete(
+            `${configuration.apiUrl}/users/${args.userId}`,
+            axiosOptions
+        );
+    }
 }
 
-export function useCurrentUser() {
-    return useQuery(["currentUser"], UsersApi.getCurrent);
+export const useUsers = () => {
+    return useQuery([UsersApi.get], UsersApi.get, {
+        refetchOnWindowFocus: false
+    });
 }

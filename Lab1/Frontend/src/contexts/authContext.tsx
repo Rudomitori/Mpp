@@ -1,5 +1,5 @@
 ﻿import React, {useState, useEffect, createContext, useContext, useCallback} from 'react';
-import UsersApi, {useCurrentUser} from "../api/UsersApi";
+import UsersApi from "../api/UsersApi";
 import {IApiUser} from "../api/models/ApiUser";
 
 interface AuthProviderProps {
