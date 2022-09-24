@@ -38,6 +38,7 @@ public class MessagesController : ControllerBase
 
         var newMessage = new Message
         {
+            Id = Guid.NewGuid(),
             Date = DateTime.UtcNow,
             FromId = currentUserId,
             ToId = dto.ToId,

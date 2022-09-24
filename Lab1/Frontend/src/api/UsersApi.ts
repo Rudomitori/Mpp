@@ -30,7 +30,7 @@ export default abstract class UsersApi {
         login: string,
         password: string
     }) {
-        const response = await axios.post(`${configuration.apiUrl}/users/create`, args, axiosOptions);
+        const response = await axios.post(`${configuration.apiUrl}/users`, args, axiosOptions);
         return response.data as IApiUser
     }
     

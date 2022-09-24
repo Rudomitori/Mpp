@@ -26,7 +26,7 @@ public class UsersController : ControllerBase
 
     #endregion
 
-    [Authorize(Roles = "admin")]
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> Get()
     {
@@ -45,7 +45,7 @@ public class UsersController : ControllerBase
         return Ok(user.ToDto());
     }
 
-    [HttpPost("create")]
+    [HttpPost]
     public async Task<IActionResult> Create(CreateUserDto dto)
     {
         var userExists = await _dbContext.Set<User>()

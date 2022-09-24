@@ -21,6 +21,7 @@ import Paper from "@mui/material/Paper";
 import {useAuth} from "../../contexts/authContext";
 import Toolbar from "@mui/material/Toolbar";
 import useStateWithDeps from "../../utils/hooks/useStateWithDeps";
+import {useNavigate} from "react-router-dom";
 
 interface IPageProps {
 
@@ -52,6 +53,8 @@ const UsersPage: FC<IPageProps> = (props) => {
         // noinspection ES6MissingAwait
         users.refetch()
     };
+    
+    const navigate = useNavigate();
 
     return (
         <>
@@ -76,7 +79,11 @@ const UsersPage: FC<IPageProps> = (props) => {
                                         primary={x.login}
                                         secondary={x.isAdmin ? "Admin" : ""}/>
 
-                                    <IconButton title={"Open chat"}>
+                                    <IconButton 
+                                        title={"Open chat"}
+                                        onClick={() => {
+                                            navigate(`/chats/${x.id}`);
+                                        }}>
                                         <CommentIcon color={"primary"}/>
                                     </IconButton>
 
