@@ -12,7 +12,7 @@ using Mpp.App.Utils;
 namespace Mpp.App.Controllers.Users;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
     #region Constructor and dependensies

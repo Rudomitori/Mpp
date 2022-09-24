@@ -10,7 +10,7 @@ using Mpp.App.Utils;
 namespace Mpp.App.Controllers.Logs;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class LogsController: ControllerBase
 {
     #region Constructor and dependensies

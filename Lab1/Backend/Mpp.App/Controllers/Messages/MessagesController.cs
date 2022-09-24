@@ -9,7 +9,7 @@ using Mpp.App.Utils;
 namespace Mpp.App.Controllers.Messages;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class MessagesController : ControllerBase
 {
     #region Constructor and dependensies

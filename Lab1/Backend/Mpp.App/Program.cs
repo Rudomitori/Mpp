@@ -1,7 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Mpp.App.Db;
+using Mpp.App.Utils;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host
+    .UseSerilog((context, services, configuration) => configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext());
 
 builder.Services.AddControllers();
 
@@ -26,6 +34,8 @@ builder.Services.AddAuthentication("Cookie")
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 // Configuring CORS to be able to run frontend by command "yarn start"
 app.UseCors(corsPolicyBuilder =>
 {
@@ -37,8 +47,14 @@ app.UseCors(corsPolicyBuilder =>
 });
 
 app.UseAuthentication();
+
+app.UseMiddleware<SerilogAddInfo>();
+app.UseSerilogRequestLogging();
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
