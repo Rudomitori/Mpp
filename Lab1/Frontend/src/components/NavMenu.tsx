@@ -5,7 +5,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import {FC, ReactNode} from "react";
 import {NavLink} from "react-router-dom";
 import GamepadIcon from "@mui/icons-material/Gamepad";
-import ChatIcon from "@mui/icons-material/Chat";
+import InfoIcon from '@mui/icons-material/Info';
 import ListIcon from "@mui/icons-material/List";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
@@ -39,6 +39,10 @@ const NavMenu = () => {
                     text={"Users"}
                     icon={<PeopleAltIcon/>}/>
             )}
+            <NavMenuItem
+                link={"about"}
+                text={"About"}
+                icon={<InfoIcon/>}/>
         </List>
     )
 }

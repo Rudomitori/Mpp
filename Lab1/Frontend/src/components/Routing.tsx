@@ -10,6 +10,7 @@ import {useAuth} from "../contexts/authContext";
 import AccessDeniedPlaceholder from "./AccessDeniedPlaceholder";
 import {FC, ReactNode} from "react";
 import LoadingPlaceholder from "./LoadingPlaceholder";
+import AboutPage from "../pages/about/AboutPage";
 
 enum AccessLevel {
     any,
@@ -58,6 +59,11 @@ const routs: IRoutInfo[] = [
         path: "/statistics",
         accessLevel: AccessLevel.admin,
         element: <StatisticsPage/>
+    },
+    {
+        path: "/about",
+        accessLevel: AccessLevel.any,
+        element: <AboutPage/>
     },
 ]
 
