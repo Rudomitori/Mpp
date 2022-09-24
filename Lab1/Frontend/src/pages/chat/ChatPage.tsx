@@ -1,13 +1,15 @@
 ﻿import {FC, useState} from "react";
-import {Box, Container, IconButton, Paper, Stack, TextField} from "@mui/material";
+import {Box, Container, IconButton, Paper, Stack, TextField, Typography} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import MessagesApi, {useMessages} from "../../api/MessagesApi";
 import {useAuth} from "../../contexts/authContext";
 import {useParams} from "react-router-dom";
+import {useUsers} from "../../api/UsersApi";
 
 
 const ChatPage: FC<{}> = (props) => {
     const auth = useAuth();
+    const users = useUsers();
     const { id: secondUserId } = useParams();
     const messages = useMessages(secondUserId as string);
     
@@ -28,6 +30,9 @@ const ChatPage: FC<{}> = (props) => {
         <Container maxWidth="sm" sx={{py: 4, height: "100%"}}>
             <Paper sx={{height: "100%", p: 2}}>
                 <Stack gap={2} direction="column" sx={{height: "100%"}}>
+                    <Typography variant="h5">
+                        {users.data?.find(x => x.id === secondUserId)?.login}
+                    </Typography>
                     <Box sx={{flexGrow: 1, overflow: "auto"}}>
                         <Stack gap={2} sx={{p: 2}}>
                             {messagesVms?.map(x => (

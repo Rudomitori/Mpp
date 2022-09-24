@@ -56,7 +56,7 @@ export default abstract class UsersApi {
 }
 
 export const useUsers = () => {
-    return useQuery([UsersApi.get], UsersApi.get, {
+    return useQuery(["useUsers"], UsersApi.get, {
         refetchOnWindowFocus: false
     });
 }

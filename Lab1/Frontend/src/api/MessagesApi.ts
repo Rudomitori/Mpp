@@ -21,6 +21,15 @@ export default abstract class MessagesApi {
             date: DateTime.fromISO(x.date)
         })) as IApiMessage[];
     }
+
+    static async getStatistic() {
+        const response = await axios.get(`${configuration.apiUrl}/messages/Statistic`, axiosOptions);
+        return response.data as {
+            fromId: string,
+            toId: string,
+            count: number
+        }[];
+    }
     
     static async send(args: {
         toId: string,
@@ -38,7 +47,13 @@ export default abstract class MessagesApi {
 }
 
 export const useMessages = (secondUserId: string) => {
-    return useQuery([MessagesApi.get, secondUserId], () => MessagesApi.get({secondUserId}), {
+    return useQuery(["useMessages", secondUserId], () => MessagesApi.get({secondUserId}), {
+        refetchOnWindowFocus: false
+    });
+}
+
+export const useMessagesStatistic = () => {
+    return useQuery(["useMessagesStatistic"], () => MessagesApi.getStatistic(), {
         refetchOnWindowFocus: false
     });
 }

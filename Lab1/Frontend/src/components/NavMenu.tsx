@@ -10,30 +10,35 @@ import ListIcon from "@mui/icons-material/List";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import {ListItemText} from "@mui/material";
+import {useAuth} from "../contexts/authContext";
 
 const NavMenu = () => {
+    const auth = useAuth();
+    
     return (
         <List component="nav">
             <NavMenuItem 
                 link={"buttons"}
                 text={"Buttons"} 
                 icon={<GamepadIcon/>}/>
-            <NavMenuItem
-                link={"chats"}
-                text={"Chats"}
-                icon={<ChatIcon/>}/>
-            <NavMenuItem
-                link={"logs"}
-                text={"Logs"}
-                icon={<ListIcon/>}/>
-            <NavMenuItem
-                link={"statistics"}
-                text={"Statistics"}
-                icon={<BarChartIcon/>}/>
-            <NavMenuItem
-                link={"users"}
-                text={"Users"}
-                icon={<PeopleAltIcon/>}/>
+            {auth.user?.isAdmin && (
+                <NavMenuItem
+                    link={"logs"}
+                    text={"Logs"}
+                    icon={<ListIcon/>}/>
+            )}
+            {auth.user?.isAdmin && (
+                <NavMenuItem
+                    link={"statistics"}
+                    text={"Statistics"}
+                    icon={<BarChartIcon/>}/>
+            )}
+            {auth.user && (
+                <NavMenuItem
+                    link={"users"}
+                    text={"Users"}
+                    icon={<PeopleAltIcon/>}/>
+            )}
         </List>
     )
 }
@@ -50,11 +55,6 @@ const NavMenuItem: FC<{
             <ListItemIcon>
                 {props.icon}
             </ListItemIcon>
-            {/*<ListItemButton */}
-            {/*    component={NavLink} */}
-            {/*    to={props.link}>*/}
-            {/*    {props.text}*/}
-            {/*</ListItemButton>*/}
             <ListItemText primary={props.text}/>
         </ListItemButton>
     )

@@ -87,7 +87,7 @@ const UsersPage: FC<IPageProps> = (props) => {
                                         <CommentIcon color={"primary"}/>
                                     </IconButton>
 
-                                    {auth.user!.isAdmin && (
+                                    {(auth.user!.isAdmin || auth.user!.id === x.id) && (
                                         <>
                                             <IconButton
                                                 title={"Change password"}
